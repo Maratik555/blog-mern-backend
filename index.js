@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
 })
 
 mongoose
-	.connect('mongodb+srv://admin555:amr40416@cluster0.vyxbhqu.mongodb.net/blog?retryWrites=true&w=majority')
+	.connect(process.env.MONGODB_URI)
 	.then(() => console.log('Db ok'))
 	.catch(err => console.log('Error connecting to Mongoose', err))
 
@@ -55,7 +55,7 @@ app.delete('/posts/:id', checkAuth, remove)
 app.patch('/posts/:id', checkAuth, postCreateValidation, handleValidationErrors, update)
 
 
-app.listen(4000, (err) => {
+app.listen(process.env.PORT || 4000, (err) => {
 	if(err) console.log(err)
 	console.log('Starting port: 4000')
 })
